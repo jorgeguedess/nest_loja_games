@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CategoriaModule } from './categoria/categoria.module';
 
 // Importa variaveis de ambients .env
 import * as dotenv from 'dotenv';
+import { Categoria } from './categoria/entities/categoria.entity';
 dotenv.config();
 
 @Module({
@@ -14,9 +16,10 @@ dotenv.config();
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: 'db_lojagames',
-      entities: [],
+      entities: [Categoria],
       synchronize: true,
     }),
+    CategoriaModule,
   ],
   controllers: [],
   providers: [],
