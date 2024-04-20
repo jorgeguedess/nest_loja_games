@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Produto } from '../entities/produto.entity';
-import { DeleteResult, ILike, Repository } from 'typeorm';
+import { DeleteResult, ILike, LessThan, MoreThan, Repository } from 'typeorm';
 
 @Injectable()
 export class ProdutoService {
@@ -37,6 +37,28 @@ export class ProdutoService {
     return await this.produtoRepository.find({
       where: {
         nome: ILike(`%${nome}%`),
+      },
+      relations: {
+        categoria: true,
+      },
+    });
+  }
+
+  async findByLowestPrice(preco: number): Promise<Produto[]> {
+    return await this.produtoRepository.find({
+      where: {
+        preco: LessThan(preco),
+      },
+      relations: {
+        categoria: true,
+      },
+    });
+  }
+
+  async findByHigherPrice(preco: number): Promise<Produto[]> {
+    return await this.produtoRepository.find({
+      where: {
+        preco: MoreThan(preco),
       },
       relations: {
         categoria: true,
