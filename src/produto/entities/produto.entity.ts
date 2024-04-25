@@ -17,7 +17,9 @@ export class Produto {
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   preco: number;
 
-  @Column()
+  @Transform(({ value }: TransformFnParams) => value?.trim())
+  @IsNotEmpty()
+  @Column({ nullable: false })
   foto: string;
 
   @ManyToOne(() => Categoria, (categoria) => categoria.produto, {
