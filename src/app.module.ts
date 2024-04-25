@@ -7,6 +7,9 @@ import { ProdutoModule } from './produto/produto.module';
 import { Produto } from './produto/entities/produto.entity';
 
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
+import { Usuario } from './usuario/entities/usuario.entity';
+import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
   imports: [
@@ -21,11 +24,13 @@ import { ConfigModule } from '@nestjs/config';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: 'db_lojagames',
-      entities: [Categoria, Produto],
+      entities: [Categoria, Produto, Usuario],
       synchronize: true,
     }),
     CategoriaModule,
     ProdutoModule,
+    AuthModule,
+    UsuarioModule,
   ],
   controllers: [],
   providers: [],
