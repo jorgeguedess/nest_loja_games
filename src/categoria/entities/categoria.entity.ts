@@ -3,7 +3,7 @@ import { IsNotEmpty } from 'class-validator';
 import { Produto } from 'src/produto/entities/produto.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'tb_categoria' })
+@Entity({ name: 'tb_categorias' })
 export class Categoria {
   @PrimaryGeneratedColumn()
   id: number;
@@ -14,7 +14,7 @@ export class Categoria {
   @Column({ length: 100, nullable: false })
   tipo: string;
 
-  // Tipo ['xbox','ps5','ps4','nintendo-switch']
+  // Slug ['xbox','ps5','ps4','nintendo-switch']
   @Transform(({ value }: TransformFnParams) => value?.trim().toLowerCase())
   @IsNotEmpty()
   @Column({ length: 100, nullable: false })
